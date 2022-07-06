@@ -1,0 +1,71 @@
+/* background */
+.back {
+    background-color: #FEFFFE;
+}
+
+.big-heading {
+    font-size: 30px;
+}
+
+/* navigation-links */
+.nav-link svg {
+    fill: black
+}
+.nav-link.active svg {
+    fill: #DC9AFC;
+}
+
+/* icons */
+.icon {
+    color: #F5684C;
+}
+
+.icon:hover {
+    color: #F5684C;
+}
+
+.icon:focus {
+    color: #F5684C;
+}
+
+/* notification badge */
+.notif_badge {
+    background-color: #DC9AFC;
+    border-radius: 2px;
+    color: white;
+    
+    padding: 1px 3px;
+    font-size: 12px;
+    
+    position: absolute; /* Position the badge within the relatively positioned button */
+    top: 0px;
+    right: 0px;
+}
+
+/* dropdown font-size */
+.drop-size {
+    font-size: 16px;
+}
+
+/* unread badge */
+.unread_badge {
+    background-color: #F5684C;
+    border-radius: 50%;
+    height: 15px;
+    width: 15px;
+    display: inline-block;
+}
+
+.dropdown-toggle::after {
+    content: none;
+}
+
+
+/* links */
+.dropdown a {
+    color: black
+}
+
+.dropdown a:visited {
+    color: black
+}

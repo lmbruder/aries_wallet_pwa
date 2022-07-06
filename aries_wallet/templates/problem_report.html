@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+
+{% load static %}
+{% load crispy_forms_tags %}
+{% block content %}
+<div class="row pb-5 mb-5">
+  <div class="col">
+    <p>To report your problem please add a detailed description of it.</p>
+    <form id="problemReportForm">
+      {% csrf_token %}
+      {{ form | crispy }}
+      <input type="hidden" id="id_cred_ex" value="{{ cred_ex_id }}">
+      <button type="submit" class="btn btn-success">Report problem</button>
+    </form>
+  </div>
+</div>
+<nav class="nav nav-justified fixed-bottom bg-light">
+  <a class="nav-link active" aria-current="page" href="/">
+    <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" class="bi bi-wallet-fill"
+      viewBox="0 0 16 16">
+      <path
+        d="M1.5 2A1.5 1.5 0 0 0 0 3.5v2h6a.5.5 0 0 1 .5.5c0 .253.08.644.306.958.207.288.557.542 1.194.542.637 0 .987-.254 1.194-.542.226-.314.306-.705.306-.958a.5.5 0 0 1 .5-.5h6v-2A1.5 1.5 0 0 0 14.5 2h-13z" />
+      <path
+        d="M16 6.5h-5.551a2.678 2.678 0 0 1-.443 1.042C9.613 8.088 8.963 8.5 8 8.5c-.963 0-1.613-.412-2.006-.958A2.679 2.679 0 0 1 5.551 6.5H0v6A1.5 1.5 0 0 0 1.5 14h13a1.5 1.5 0 0 0 1.5-1.5v-6z" />
+    </svg>
+  </a>
+  <a class="nav-link" href="/proof_requests">
+    <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" class="bi bi-send"
+      viewBox="0 0 16 16">
+      <path
+        d="M15.854.146a.5.5 0 0 1 .11.54l-5.819 14.547a.75.75 0 0 1-1.329.124l-3.178-4.995L.643 7.184a.75.75 0 0 1 .124-1.33L15.314.037a.5.5 0 0 1 .54.11ZM6.636 10.07l2.761 4.338L14.13 2.576 6.636 10.07Zm6.787-8.201L1.591 6.602l4.339 2.76 7.494-7.493Z" />
+    </svg>
+  </a>
+  <a class="nav-link" href="/accounts/logout">
+    <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" class="bi bi-box-arrow-right"
+      viewBox="0 0 16 16">
+      <path fill-rule="evenodd"
+        d="M10 12.5a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v2a.5.5 0 0 0 1 0v-2A1.5 1.5 0 0 0 9.5 2h-8A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-2a.5.5 0 0 0-1 0v2z" />
+      <path fill-rule="evenodd"
+        d="M15.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 0 0-.708.708L14.293 7.5H5.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3z" />
+    </svg>
+  </a>
+</nav>
+{% endblock %}
+{% block endOfBody %}
+<script type="module" src="{% static 'js/problemReport.js' %}"></script>
+{% endblock %}

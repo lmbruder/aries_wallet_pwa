@@ -1,0 +1,124 @@
+{% load static %}
+{% load pwa %}
+{% load webpush_notifications %}
+
+<!DOCTYPE html>
+<html>
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}" type="text/css">
+  <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}" type="text/css">
+
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="{% static 'css/general.css' %}" type="text/css">
+  <link rel="stylesheet" href="{% static 'css/index.css' %}" type="text/css">
+
+  <!-- Bootstrap icons -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.0/font/bootstrap-icons.css"
+    integrity="sha384-ejwKkLla8gPP8t2u0eQyL0Q/4ItcnyveF505U0NIobD/SMsNyXrLti6CWaD0L52l" crossorigin="anonymous">
+
+  <!-- Path to manifest.json -->
+  <link rel="manifest" href="/manifest.json">
+
+  <!-- Add to homescreen for Chrome on Android -->
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="application-name" content="aries wallet">
+
+
+  <!-- Chrome for Android theme color -->
+  <meta name="theme-color" content="#FEFFFE">
+
+  <!-- Add to homescreen for Safari on iOS -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-title" content="aries wallet">
+  <meta name="apple-mobile-web-app-status-bar-style" content="#FEFFFE">
+
+  <link rel="apple-touch-icon" href="/static/images/aries.png" sizes="">
+
+  <link href="/static/images/aries.png"
+    media="(device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2)"
+    rel="apple-touch-startup-image" />
+
+  <!-- Tile for Win8 -->
+  <meta name="msapplication-TileColor" content="#FEFFFE">
+
+  <meta name="msapplication-TileImage" content="/static/images/aries.png">
+
+  <link rel="icon" sizes="" href="/static/images/aries.png">
+  
+  <script type="text/javascript">
+    // Initialize the service worker
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('/serviceworker.js', {
+        scope: '/',
+        type: 'module'
+      }).then(function (registration) {
+        // Registration was successful
+        console.log('django-pwa: ServiceWorker registration successful with scope: ', registration.scope);
+
+      }, function (err) {
+        // Registration failed
+        console.log('django-pwa: ServiceWorker registration failed: ', err);
+      });
+    }
+  </script>
+
+  {% webpush_header %}
+
+  <title>Aries Wallet</title>
+</head>
+
+<body class="back">
+  <!-- Bootstrap core JavaScript -->
+  <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+  <script src="{% static 'js/connectionStatus.js' %}"></script>
+  <script src="{% static 'js/notifications.js' %}"></script>
+  <div class="container">
+    <div class="row">
+      <p class="bg-info" id="connectionStatus"></p>
+    </div>
+    <div class="row">
+      <div class="col">
+        <p class="big-heading">
+          <a class="text-dark" style="text-decoration: none" href="{% url 'index' %}">aries wallet</a>
+        </p>
+      </div>
+      {% if user.is_authenticated %}
+      <div class="col-2">
+        <div class="pt-2 dropdown" id="notification-dropdown">
+          <a class="float-end dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown"
+            aria-expanded="false">
+            <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="currentColor" class="bi bi-bell-fill"
+              viewBox="0 0 16 16">
+              <path
+                d="M8 16a2 2 0 0 0 2-2H6a2 2 0 0 0 2 2zm.995-14.901a1 1 0 1 0-1.99 0A5.002 5.002 0 0 0 3 6c0 1.098-.5 6-2 7h14c-1.5-1-2-5.902-2-7 0-2.42-1.72-4.44-4.005-4.901z">
+              </path>
+            </svg>
+            <span id="count_notifs" class="notif_badge"></span>
+          </a>
+          <ul id="notif-dropdown" class="dropdown-menu dropdown-menu-end drop-size" style="max-width: 300px;"
+            aria-labelledby="dropdownMenuLink">
+          </ul>
+        </div>
+      </div>
+      {% else %}
+      <p>You are not logged in.</p>
+      <a href="{% url 'login' %}">Log In</a>
+      {% endif %}
+    </div>
+    {% if user.is_authenticated %}
+    {% webpush_button with_class="btn-sm btn btn-outline-info" %}
+    {% block content %}
+    {% endblock %}
+    {% endif %}
+  </div>
+  {% block endOfBody %}
+  {% endblock %}
+</body>
+
+</html>

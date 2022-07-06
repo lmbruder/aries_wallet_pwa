@@ -1,0 +1,32 @@
+version: "3.8"
+services:
+  acapy:
+    container_name: aries-cloud-agent-python
+    image: bcgovimages/aries-cloudagent:py36-1.16-1_0.7.3
+    entrypoint: /bin/bash
+    command: "aca-py start \
+      --auto-provision
+      --inbound-transport http 0.0.0.0 8000 \
+      --outbound-transport http \
+      --admin 0.0.0.0 10000 \
+      --endpoint http://aries-cloud-agent-python:8000 \
+      --webhook-url http://host.docker.internal:8000/webhook
+      --genesis-file /network-files/von_network.txt \
+      --admin-insecure-mode \
+      --seed Ee0uPna1Vyp/NQixXsXobovnfrdy97O6 \
+      --wallet-local-did \
+      --wallet-key 7FtvzTcDvNV3JY3oZEbLXtyTSv5B8teVwzNV2Th2EYWG \
+      --wallet-type indy \
+      --wallet-name local-wallet \
+      --preserve-exchange-records \
+      --monitor-revocation-notification"
+    ports:
+      - "127.0.0.1:10000:10000" #outbound
+    volumes:
+      - ./network-files:/network-files:ro
+    networks:
+      - aries-django-wallet
+
+networks:
+  aries-django-wallet:
+    name: aries-django-wallet

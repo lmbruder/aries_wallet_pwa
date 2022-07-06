@@ -1,0 +1,50 @@
+{% load static %}
+{% load pwa %}
+{% load webpush_notifications %}
+
+<!DOCTYPE html>
+<html>
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}" type="text/css">
+  <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}" type="text/css">
+
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="{% static 'css/general.css' %}" type="text/css">
+  <link rel="stylesheet" href="{% static 'css/index.css' %}" type="text/css">
+
+  <!-- Bootstrap icons -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.0/font/bootstrap-icons.css"
+    integrity="sha384-ejwKkLla8gPP8t2u0eQyL0Q/4ItcnyveF505U0NIobD/SMsNyXrLti6CWaD0L52l" crossorigin="anonymous">
+
+
+  {% progressive_web_app_meta %}
+  {% webpush_header %}
+
+  <title>Aries Wallet</title>
+</head>
+
+<body class="back">
+  <!-- Bootstrap core JavaScript -->
+  <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+  <div class="container">
+    <div class="row pt-3">
+      <div class="col">
+        <a style="text-decoration: none" href="{% url 'index' %}">
+          <p class="big-heading text-dark">aries wallet</p>
+        </a>
+      </div>
+    </div>
+    <div class="row">
+      <p>You are currently offline.</p>
+      <p>Please try again later or go back to the <a href="/">main page</a>.</p>
+    </div>
+  </div>
+</body>
+
+</html>

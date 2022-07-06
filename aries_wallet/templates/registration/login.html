@@ -1,0 +1,77 @@
+{% load static %}
+{% load webpush_notifications %}
+{% load crispy_forms_tags %}
+
+<!DOCTYPE html>
+<html>
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}" type="text/css">
+  <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}" type="text/css">
+
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="{% static 'css/general.css' %}" type="text/css">
+  <link rel="stylesheet" href="{% static 'css/index.css' %}" type="text/css">
+
+  <!-- Bootstrap icons -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.0/font/bootstrap-icons.css"
+    integrity="sha384-ejwKkLla8gPP8t2u0eQyL0Q/4ItcnyveF505U0NIobD/SMsNyXrLti6CWaD0L52l" crossorigin="anonymous">
+
+  <!-- Path to manifest.json -->
+  <link rel="manifest" href="/manifest.json">
+
+  <!-- Add to homescreen for Chrome on Android -->
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="application-name" content="aries wallet">
+
+
+  <!-- Chrome for Android theme color -->
+  <meta name="theme-color" content="#FEFFFE">
+
+  <!-- Add to homescreen for Safari on iOS -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-title" content="aries wallet">
+  <meta name="apple-mobile-web-app-status-bar-style" content="#FEFFFE">
+
+  <link rel="apple-touch-icon" href="/static/images/aries.png" sizes="">
+
+  <link href="/static/images/aries.png"
+    media="(device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2)"
+    rel="apple-touch-startup-image" />
+
+  <!-- Tile for Win8 -->
+  <meta name="msapplication-TileColor" content="#FEFFFE">
+
+  <meta name="msapplication-TileImage" content="/static/images/aries.png">
+
+  <link rel="icon" sizes="" href="/static/images/aries.png">
+
+  {% webpush_header %}
+
+  <title>Aries Wallet</title>
+</head>
+
+<body class="back">
+  <div class="container">
+    <div class="row pt-3">
+      <div class="col">
+        <a style="text-decoration: none" href="{% url 'index' %}">
+          <p class="big-heading text-dark">aries wallet</p>
+        </a>
+      </div>
+    </div>
+    <h2>Log In</h2>
+    <form method="post">
+      {% csrf_token %}
+      {{ form | crispy }}
+      <button class="btn btn-primary" type="submit">Log In</button>
+    </form>
+  </div>
+</body>
+
+</html>

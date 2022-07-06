@@ -1,0 +1,47 @@
+version: "3.7"
+services:
+  aries-cloud-agent-second:
+    container_name: aries-cloud-agent-second
+    image: bcgovimages/aries-cloudagent:py36-1.16-1_0.7.3
+    entrypoint: /bin/bash
+    command: "aca-py start \
+        --auto-provision \
+        --inbound-transport http 0.0.0.0 10011 \
+        --outbound-transport http \
+        --admin 0.0.0.0 10010 \
+        --endpoint http://aries-cloud-agent-second:10011 \
+        --genesis-file /network-files/von_network.txt \
+        --admin-insecure-mode \
+        --label second \
+        --wallet-type indy \
+        --wallet-name 'second_agent_wallet' \
+        --wallet-key H3C2AVvLMv6gmMNam3uVAjZpfkcJCwDwnZn6z3wXmqPV \
+        --auto-accept-invites \
+        --invite-public \
+        --public-invites \
+        --tails-server-base-url ${TAILS_URL} \
+        --auto-accept-requests \
+        --auto-ping-connection \
+        --auto-respond-credential-offer \
+        --auto-store-credential \
+        --auto-respond-presentation-request \
+        --auto-verify-presentation \
+        --monitor-revocation-notification \
+        --preserve-exchange-records \
+        --debug-presentations \
+        --debug-credentials \
+        --notify-revocation"
+    ports:
+      - "127.0.0.1:10010:10010" #admin API
+      - "127.0.0.1:10011:10011" #DID
+    volumes:
+      - ./network-files:/network-files:ro
+    networks:
+      - second-aries-network
+      - aries-django-wallet
+
+networks:
+  second-aries-network:
+    name: second-aries-network
+  aries-django-wallet:
+    external: true
